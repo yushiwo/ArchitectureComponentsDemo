@@ -1,4 +1,4 @@
-package com.example.netease.architecturecomponentsdemo.data.local.db;
+package com.example.netease.architecturecomponentsdemo.dbmanager;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
@@ -10,7 +10,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 
-import com.example.netease.architecturecomponentsdemo.data.local.db.entity.User;
+import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 
 /**
  * AppDatabaseManager.java

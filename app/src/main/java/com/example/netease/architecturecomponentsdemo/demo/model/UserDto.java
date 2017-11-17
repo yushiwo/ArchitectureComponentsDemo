@@ -1,13 +1,13 @@
-package com.example.netease.architecturecomponentsdemo.data.remote.model;
+package com.example.netease.architecturecomponentsdemo.demo.model;
 
 
-import com.example.netease.architecturecomponentsdemo.data.local.db.entity.User;
+import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 
 /**
  * Created by netease on 17/11/14.
  */
 
-public class UserData {
+public class UserDto {
     private boolean error;
     private User user;
 

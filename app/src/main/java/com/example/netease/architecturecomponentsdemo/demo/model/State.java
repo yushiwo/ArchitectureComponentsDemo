@@ -1,4 +1,4 @@
-package com.example.netease.architecturecomponentsdemo.data.remote.model;
+package com.example.netease.architecturecomponentsdemo.demo.model;
 
 /**
  * Created by netease on 17/11/14.

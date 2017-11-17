@@ -1,4 +1,4 @@
-package com.example.netease.architecturecomponentsdemo.util;
+package com.example.netease.architecturecomponentsdemo.demo.util;
 
 import android.support.annotation.NonNull;
 

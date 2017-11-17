@@ -1,4 +1,4 @@
-package com.example.netease.architecturecomponentsdemo.ui;
+package com.example.netease.architecturecomponentsdemo.demo.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -11,12 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.netease.architecturecomponentsdemo.R;
-import com.example.netease.architecturecomponentsdemo.data.UserRepository;
-import com.example.netease.architecturecomponentsdemo.data.local.datasource.impl.LocalDataSourceImpl;
-import com.example.netease.architecturecomponentsdemo.data.local.db.entity.User;
-import com.example.netease.architecturecomponentsdemo.data.remote.datasource.impl.UserDataSourceImpl;
-import com.example.netease.architecturecomponentsdemo.data.remote.model.State;
-import com.example.netease.architecturecomponentsdemo.viewmodel.UserViewModel;
+import com.example.netease.architecturecomponentsdemo.demo.datasource.impl.UserDataSourceImpl;
+import com.example.netease.architecturecomponentsdemo.demo.model.State;
+import com.example.netease.architecturecomponentsdemo.demo.repository.UserRepository;
+import com.example.netease.architecturecomponentsdemo.demo.viewmodel.UserViewModel;
+import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void observeDataChange() {
         UserViewModel.Factory factory = new UserViewModel.Factory(
-                getApplication(), UserRepository.getInstance(UserDataSourceImpl.getInstance(), LocalDataSourceImpl.getInstance()));
+                getApplication(), UserRepository.getInstance(UserDataSourceImpl.getInstance()));
         userViewModel = ViewModelProviders.of(this, factory).get(UserViewModel.class);
         userViewModel.getUserLiveData().observe(this, new Observer<User>() {
             @Override

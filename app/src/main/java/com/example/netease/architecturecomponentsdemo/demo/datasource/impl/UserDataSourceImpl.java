@@ -1,14 +1,13 @@
-package com.example.netease.architecturecomponentsdemo.data.remote.datasource.impl;
+package com.example.netease.architecturecomponentsdemo.demo.datasource.impl;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.example.netease.architecturecomponentsdemo.data.local.db.AppDatabase;
-import com.example.netease.architecturecomponentsdemo.data.local.db.AppDatabaseManager;
-import com.example.netease.architecturecomponentsdemo.data.local.db.entity.User;
-import com.example.netease.architecturecomponentsdemo.data.remote.datasource.UserDataSource;
-import com.example.netease.architecturecomponentsdemo.data.remote.model.State;
-import com.example.netease.architecturecomponentsdemo.util.ExecutorServiceManager;
+import com.example.netease.architecturecomponentsdemo.dbmanager.AppDatabaseManager;
+import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
+import com.example.netease.architecturecomponentsdemo.demo.datasource.UserDataSource;
+import com.example.netease.architecturecomponentsdemo.demo.model.State;
+import com.example.netease.architecturecomponentsdemo.demo.util.ExecutorServiceManager;
 
 import java.util.concurrent.TimeUnit;
 

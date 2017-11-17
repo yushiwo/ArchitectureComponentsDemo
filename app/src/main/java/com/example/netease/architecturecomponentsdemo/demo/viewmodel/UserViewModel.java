@@ -1,4 +1,4 @@
-package com.example.netease.architecturecomponentsdemo.viewmodel;
+package com.example.netease.architecturecomponentsdemo.demo.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -9,9 +9,9 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import com.example.netease.architecturecomponentsdemo.data.UserRepository;
-import com.example.netease.architecturecomponentsdemo.data.local.db.entity.User;
-import com.example.netease.architecturecomponentsdemo.data.remote.model.State;
+import com.example.netease.architecturecomponentsdemo.demo.model.State;
+import com.example.netease.architecturecomponentsdemo.demo.repository.UserRepository;
+import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 
 /**
  * Created by netease on 17/11/14.

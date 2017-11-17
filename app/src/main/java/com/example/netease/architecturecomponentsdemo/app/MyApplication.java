@@ -2,7 +2,7 @@ package com.example.netease.architecturecomponentsdemo.app;
 
 import android.app.Application;
 
-import com.example.netease.architecturecomponentsdemo.data.local.db.AppDatabaseManager;
+import com.example.netease.architecturecomponentsdemo.dbmanager.AppDatabaseManager;
 
 /**
  * Created by netease on 17/11/15.

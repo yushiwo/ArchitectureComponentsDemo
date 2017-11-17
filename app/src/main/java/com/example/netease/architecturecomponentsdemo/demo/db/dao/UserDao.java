@@ -1,10 +1,10 @@
-package com.example.netease.architecturecomponentsdemo.data.local.db.dao;
+package com.example.netease.architecturecomponentsdemo.demo.db.dao;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import com.example.netease.architecturecomponentsdemo.data.local.db.entity.User;
+import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
