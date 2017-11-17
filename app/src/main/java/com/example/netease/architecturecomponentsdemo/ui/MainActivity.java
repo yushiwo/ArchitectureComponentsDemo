@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable User user) {
                 if (user != null) {
-                    mResultTextView.setText(user.getName());
+                    mResultTextView.setText(user.getLastName() + user.getName());
                 }
             }
         });

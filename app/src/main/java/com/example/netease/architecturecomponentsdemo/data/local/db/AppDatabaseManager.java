@@ -3,7 +3,9 @@ package com.example.netease.architecturecomponentsdemo.data.local.db;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Room;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -44,6 +46,22 @@ public class AppDatabaseManager {
         return INSTANCE;
     }
 
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            // Since we didn't alter the table, there's nothing else to do here.
+        }
+    };
+
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE users "
+                    + " ADD COLUMN last_name TEXT");
+        }
+    };
+
+
     @SuppressLint("StaticFieldLeak")
     public void createDB(Context context) {
         new AsyncTask<Context, Void, Void>() {
@@ -51,7 +69,9 @@ public class AppDatabaseManager {
             protected Void doInBackground(Context... params) {
                 Context context = params[0].getApplicationContext();
                 mDB = Room.databaseBuilder(context,
-                        AppDatabase.class, DATABASE_NAME).build();
+                        AppDatabase.class, DATABASE_NAME)
+                        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                        .build();
                 return null;
             }
         }.execute(context.getApplicationContext());

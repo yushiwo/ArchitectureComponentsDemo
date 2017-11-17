@@ -56,6 +56,7 @@ public class UserDataSourceImpl implements UserDataSource {
                         user.setId(address);
                         user.setName("小雪" + (int)(Math.random()*10));
                         user.setAge(15);
+                        user.setLastName("盛");
                         AppDatabaseManager.getInstance().saveUser(user);
                         data.postValue(user);
 
@@ -97,6 +98,7 @@ public class UserDataSourceImpl implements UserDataSource {
                         user.setId(address);
                         user.setName("威少");
                         user.setAge(18);
+                        user.setLastName("陈");
                         AppDatabaseManager.getInstance().saveUser(user);
                         data.postValue(user);
 
