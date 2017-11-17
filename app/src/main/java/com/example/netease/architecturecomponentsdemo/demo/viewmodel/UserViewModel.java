@@ -9,7 +9,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import com.example.netease.architecturecomponentsdemo.demo.model.State;
+import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
 import com.example.netease.architecturecomponentsdemo.demo.repository.UserRepository;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 

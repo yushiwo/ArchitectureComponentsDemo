@@ -1,4 +1,4 @@
-package com.example.netease.architecturecomponentsdemo.demo.model;
+package com.example.netease.architecturecomponentsdemo.demo.model.dto;
 
 
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;

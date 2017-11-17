@@ -1,4 +1,4 @@
-package com.example.netease.architecturecomponentsdemo.demo.model;
+package com.example.netease.architecturecomponentsdemo.demo.model.dto;
 
 /**
  * Created by netease on 17/11/14.

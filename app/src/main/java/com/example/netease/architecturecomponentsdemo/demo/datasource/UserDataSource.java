@@ -3,7 +3,7 @@ package com.example.netease.architecturecomponentsdemo.demo.datasource;
 import android.arch.lifecycle.LiveData;
 
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
-import com.example.netease.architecturecomponentsdemo.demo.model.State;
+import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
 
 /**
  * Created by netease on 17/11/14.

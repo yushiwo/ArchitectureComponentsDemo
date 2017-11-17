@@ -6,7 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import com.example.netease.architecturecomponentsdemo.dbmanager.AppDatabaseManager;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 import com.example.netease.architecturecomponentsdemo.demo.datasource.UserDataSource;
-import com.example.netease.architecturecomponentsdemo.demo.model.State;
+import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
 import com.example.netease.architecturecomponentsdemo.demo.util.ExecutorServiceManager;
 
 import java.util.concurrent.TimeUnit;

@@ -5,7 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-import com.example.netease.architecturecomponentsdemo.demo.model.UserDto;
+import com.example.netease.architecturecomponentsdemo.demo.model.dto.UserDto;
 
 /**
  * Created by netease on 17/11/15.

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.netease.architecturecomponentsdemo.R;
 import com.example.netease.architecturecomponentsdemo.demo.datasource.impl.UserDataSourceImpl;
-import com.example.netease.architecturecomponentsdemo.demo.model.State;
+import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
 import com.example.netease.architecturecomponentsdemo.demo.repository.UserRepository;
 import com.example.netease.architecturecomponentsdemo.demo.viewmodel.UserViewModel;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
