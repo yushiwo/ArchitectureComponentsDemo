@@ -17,7 +17,7 @@ import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
  * <p>
  * Created by lijiankun on 17/7/5.
  */
-
+@Deprecated
 public class AppDatabaseManager {
 
     private static final String DATABASE_NAME = "architecture-practice-db";
@@ -28,7 +28,8 @@ public class AppDatabaseManager {
 
     private static AppDatabaseManager INSTANCE = null;
 
-    private AppDatabase mDB = null;{
+    private AppDatabase mDB = null;
+    {
         mUser = new MutableLiveData<>();
     }
 
@@ -44,6 +45,10 @@ public class AppDatabaseManager {
             }
         }
         return INSTANCE;
+    }
+
+    public AppDatabase getmDB() {
+        return mDB;
     }
 
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {

@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.example.netease.architecturecomponentsdemo.dbmanager.AppDatabaseManager;
+import com.example.netease.architecturecomponentsdemo.demo.db.UserDatabaseManager;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 import com.example.netease.architecturecomponentsdemo.demo.datasource.UserDataSource;
 import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
@@ -36,7 +37,7 @@ public class UserDataSourceImpl implements UserDataSource {
     @Override
     public LiveData<User> getUserLiveData(String address) {
 
-        data = (MutableLiveData<User>) AppDatabaseManager.getInstance().loadUser(address);
+        data = (MutableLiveData<User>) UserDatabaseManager.getInstance().loadUser(address);
         State s = new State();
         s.setStatus("loading");
         s.setMessage("加载中...");
@@ -56,7 +57,7 @@ public class UserDataSourceImpl implements UserDataSource {
                         user.setName("小雪" + (int)(Math.random()*10));
                         user.setAge(15);
                         user.setLastName("盛");
-                        AppDatabaseManager.getInstance().saveUser(user);
+                        UserDatabaseManager.getInstance().saveUser(user);
                         data.postValue(user);
 
                         State s = new State();
@@ -98,7 +99,7 @@ public class UserDataSourceImpl implements UserDataSource {
                         user.setName("威少");
                         user.setAge(18);
                         user.setLastName("陈");
-                        AppDatabaseManager.getInstance().saveUser(user);
+                        UserDatabaseManager.getInstance().saveUser(user);
                         data.postValue(user);
 
                         State s = new State();

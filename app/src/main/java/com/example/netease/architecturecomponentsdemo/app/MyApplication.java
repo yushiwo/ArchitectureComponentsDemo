@@ -2,6 +2,7 @@ package com.example.netease.architecturecomponentsdemo.app;
 
 import android.app.Application;
 
+import com.example.netease.architecturecomponentsdemo.dbmanager.AppDatabase;
 import com.example.netease.architecturecomponentsdemo.dbmanager.AppDatabaseManager;
 
 /**
@@ -19,6 +20,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
-        AppDatabaseManager.getInstance().createDB(this);
+        AppDatabase.createDB(this);
     }
 }
