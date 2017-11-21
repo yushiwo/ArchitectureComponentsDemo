@@ -3,7 +3,7 @@ package com.example.netease.architecturecomponentsdemo.demo.datasource.impl;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.example.netease.architecturecomponentsdemo.dbmanager.AppDatabaseManager;
+import com.example.netease.architecturecomponentsdemo.aacbase.datasource.AbDataSource;
 import com.example.netease.architecturecomponentsdemo.demo.db.UserDatabaseManager;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 import com.example.netease.architecturecomponentsdemo.demo.datasource.UserDataSource;
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * Created by netease on 17/11/14.
  */
 
-public class UserDataSourceImpl implements UserDataSource {
+public class UserDataSourceImpl extends AbDataSource implements UserDataSource {
     private static long TIME = 2;
     private static UserDataSourceImpl INSTANCE = null;
 
@@ -31,7 +31,6 @@ public class UserDataSourceImpl implements UserDataSource {
         return INSTANCE;
     }
 
-    MutableLiveData<State> state = new MutableLiveData<>();
     MutableLiveData<User> data = new MutableLiveData<>();
 
     @Override
@@ -116,8 +115,4 @@ public class UserDataSourceImpl implements UserDataSource {
         return data;
     }
 
-    @Override
-    public LiveData<State> getState(String address) {
-        return state;
-    }
 }

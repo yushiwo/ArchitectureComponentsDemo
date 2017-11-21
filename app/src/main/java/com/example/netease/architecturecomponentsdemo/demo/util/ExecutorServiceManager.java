@@ -2,6 +2,8 @@ package com.example.netease.architecturecomponentsdemo.demo.util;
 
 import android.support.annotation.NonNull;
 
+import com.example.netease.architecturecomponentsdemo.demo.datasource.impl.UserDataSourceImpl;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -11,10 +13,17 @@ import java.util.concurrent.ThreadFactory;
  * Created by siyehua on 2017/8/8.
  */
 public class ExecutorServiceManager {
-    private static ExecutorServiceManager manager = new ExecutorServiceManager();
+    private static ExecutorServiceManager sInstance;
 
     public static ExecutorServiceManager getInstance() {
-        return manager;
+        if (sInstance == null) {
+            synchronized (ExecutorServiceManager.class) {
+                if (sInstance == null) {
+                    sInstance = new ExecutorServiceManager();
+                }
+            }
+        }
+        return sInstance;
     }
 
     private ExecutorService executorService;

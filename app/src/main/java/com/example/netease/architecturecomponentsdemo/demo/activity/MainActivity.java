@@ -54,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void observeDataChange() {
-        UserViewModel.Factory factory = new UserViewModel.Factory(
-                getApplication(), UserRepository.getInstance(UserDataSourceImpl.getInstance()));
+        UserViewModel.Factory factory = new UserViewModel.Factory( UserRepository.getInstance(UserDataSourceImpl.getInstance()));
         userViewModel = ViewModelProviders.of(this, factory).get(UserViewModel.class);
         userViewModel.getUserLiveData().observe(this, new Observer<User>() {
             @Override

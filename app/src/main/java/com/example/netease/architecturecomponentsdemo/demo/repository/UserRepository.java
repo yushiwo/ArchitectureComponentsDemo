@@ -3,6 +3,7 @@ package com.example.netease.architecturecomponentsdemo.demo.repository;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
+import com.example.netease.architecturecomponentsdemo.aacbase.repository.IRepository;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 import com.example.netease.architecturecomponentsdemo.demo.datasource.UserDataSource;
 import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
@@ -11,7 +12,7 @@ import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
  * Created by netease on 17/11/14.
  */
 
-public class UserRepository {
+public class UserRepository implements IRepository {
     private static UserRepository INSTANCE = null;
 
     private UserDataSource mUserDataSource;
@@ -35,7 +36,8 @@ public class UserRepository {
         return mUserDataSource.getUserLiveData(address);
     }
 
-    public LiveData<State> getState(String address) {
-        return mUserDataSource.getState(address);
+    @Override
+    public LiveData<State> getState() {
+        return mUserDataSource.getState();
     }
 }
