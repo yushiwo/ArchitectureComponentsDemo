@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.netease.architecturecomponentsdemo.R;
 import com.example.netease.architecturecomponentsdemo.demo.datasource.impl.UserDataSourceImpl;
+import com.example.netease.architecturecomponentsdemo.demo.model.Product;
 import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
 import com.example.netease.architecturecomponentsdemo.demo.repository.UserRepository;
 import com.example.netease.architecturecomponentsdemo.demo.viewmodel.UserViewModel;
@@ -19,8 +20,10 @@ import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mResultTextView;
+    private TextView mUserTextView;
+    private TextView mProductTextView;
     private TextView mStateTextView;
+    private TextView mProductStateTextView;
     private EditText editText;
     private Button button;
     private UserViewModel userViewModel;
@@ -37,8 +40,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mResultTextView = (TextView) findViewById(R.id.tv_result);
+        mUserTextView = (TextView) findViewById(R.id.tv_user);
+        mProductTextView = (TextView) findViewById(R.id.tv_product);
         mStateTextView = (TextView) findViewById(R.id.tv_state);
+        mProductStateTextView = (TextView) findViewById(R.id.tv_product_state);
         editText = (EditText) findViewById(R.id.et);
         button = (Button) findViewById(R.id.btn);
     }
@@ -48,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String inputStr = editText.getText().toString();
-                userViewModel.loadUserData(inputStr);
+                userViewModel.requestUser(inputStr);
+                userViewModel.requestProduct();
             }
         });
     }
@@ -56,14 +62,22 @@ public class MainActivity extends AppCompatActivity {
     private void observeDataChange() {
         UserViewModel.Factory factory = new UserViewModel.Factory( UserRepository.getInstance(UserDataSourceImpl.getInstance()));
         userViewModel = ViewModelProviders.of(this, factory).get(UserViewModel.class);
-        userViewModel.getUserLiveData().observe(this, new Observer<User>() {
+        userViewModel.getUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
                 if (user != null) {
-                    mResultTextView.setText(user.getLastName() + user.getName());
+                    mUserTextView.setText(user.getLastName() + user.getName());
                 }
             }
         });
+
+        userViewModel.getProduct().observe(this, new Observer<Product>() {
+            @Override
+            public void onChanged(@Nullable Product product) {
+                mProductTextView.setText(String.valueOf(product.getWeight()));
+            }
+        });
+
         userViewModel.getState().observe(this, new Observer<State>() {
             @Override
             public void onChanged(@Nullable State state) {
@@ -74,6 +88,13 @@ public class MainActivity extends AppCompatActivity {
                 } else if (state != null || state.getStatus().equals("loading")) {
                     mStateTextView.setText(state.getMessage());
                 }
+            }
+        });
+
+        userViewModel.getProductState().observe(this, new Observer<State>() {
+            @Override
+            public void onChanged(@Nullable State state) {
+                mProductStateTextView.setText(state.getMessage());
             }
         });
     }

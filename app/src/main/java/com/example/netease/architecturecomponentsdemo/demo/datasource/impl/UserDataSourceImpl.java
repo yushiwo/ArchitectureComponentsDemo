@@ -4,10 +4,14 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.example.netease.architecturecomponentsdemo.aacbase.datasource.AbDataSource;
+import com.example.netease.architecturecomponentsdemo.app.AppExecutors;
 import com.example.netease.architecturecomponentsdemo.demo.db.UserDatabaseManager;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 import com.example.netease.architecturecomponentsdemo.demo.datasource.UserDataSource;
+import com.example.netease.architecturecomponentsdemo.demo.model.Product;
+import com.example.netease.architecturecomponentsdemo.demo.model.dto.ProductDto;
 import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
+import com.example.netease.architecturecomponentsdemo.demo.model.impl.ProductImpl;
 import com.example.netease.architecturecomponentsdemo.demo.util.ExecutorServiceManager;
 
 import java.util.concurrent.TimeUnit;
@@ -32,6 +36,8 @@ public class UserDataSourceImpl extends AbDataSource implements UserDataSource {
     }
 
     MutableLiveData<User> data = new MutableLiveData<>();
+    MutableLiveData<Product> productMutableLiveData = new MutableLiveData<>();
+    MutableLiveData<State> productState = new MutableLiveData<>();
 
     @Override
     public LiveData<User> getUserLiveData(String address) {
@@ -113,6 +119,40 @@ public class UserDataSourceImpl extends AbDataSource implements UserDataSource {
 
 
         return data;
+    }
+
+    @Override
+    public LiveData<Product> getProductLiveData() {
+        State s = new State();
+        s.setStatus("");
+        s.setMessage("loading...");
+        productState.postValue(s);
+
+        AppExecutors.getInstance().networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                int index = (int) (Math.random() * 10);
+                Product product = new ProductImpl("产品" , index);
+                State s = new State();
+
+                s.setStatus("");
+                s.setMessage(String.valueOf(index));
+
+                productState.postValue(s);
+                productMutableLiveData.postValue(product);
+            }
+        });
+        return productMutableLiveData;
+    }
+
+    @Override
+    public LiveData<State> getProductState() {
+        return productState;
     }
 
 }

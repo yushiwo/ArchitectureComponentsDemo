@@ -19,17 +19,20 @@ public abstract class AbViewModel extends ViewModel {
     public final MutableLiveData<String> stateInput = new MutableLiveData();
 
     public final LiveData<State> state =
-            Transformations.switchMap(stateInput, (String input) -> {
-                return repository.getState();
-            });
+            Transformations.switchMap(stateInput, (String input) -> repository.getState());
 
     public AbViewModel(IRepository repository) {
         this.repository = repository;
     }
 
+    /**
+     * 若需要使用默认的state，需要在调用请求的地方调用如下方法
+     */
+    public void observeState() {
+        stateInput.setValue(null);
+    }
 
     public LiveData<State> getState() {
-        stateInput.setValue(null);
         return state;
     }
 
