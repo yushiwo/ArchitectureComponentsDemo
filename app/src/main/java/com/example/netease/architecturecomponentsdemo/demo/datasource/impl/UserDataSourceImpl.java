@@ -43,10 +43,7 @@ public class UserDataSourceImpl extends AbDataSource implements UserDataSource {
     public LiveData<User> getUserLiveData(String address) {
 
         data = (MutableLiveData<User>) UserDatabaseManager.getInstance().loadUser(address);
-        State s = new State();
-        s.setStatus("loading");
-        s.setMessage("加载中...");
-        state.postValue(s);
+        notifyLoading();
         switch (address) {
             case "1":
                 ExecutorServiceManager.getInstance().execute(new Runnable() {
@@ -65,10 +62,7 @@ public class UserDataSourceImpl extends AbDataSource implements UserDataSource {
                         UserDatabaseManager.getInstance().saveUser(user);
                         data.postValue(user);
 
-                        State s = new State();
-                        s.setStatus("success");
-                        s.setMessage("成功！");
-                        state.postValue(s);
+                        notifySuccess();
                     }
                 });
                 break;
@@ -82,10 +76,7 @@ public class UserDataSourceImpl extends AbDataSource implements UserDataSource {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        State s = new State();
-                        s.setStatus("failed");
-                        s.setMessage("失败啦！");
-                        state.postValue(s);
+                        notifyError();
                     }
                 });
                 break;
@@ -107,10 +98,7 @@ public class UserDataSourceImpl extends AbDataSource implements UserDataSource {
                         UserDatabaseManager.getInstance().saveUser(user);
                         data.postValue(user);
 
-                        State s = new State();
-                        s.setStatus("success");
-                        s.setMessage("成功！");
-                        state.postValue(s);
+                       notifySuccess();
 
                     }
                 });
@@ -123,9 +111,7 @@ public class UserDataSourceImpl extends AbDataSource implements UserDataSource {
 
     @Override
     public LiveData<Product> getProductLiveData() {
-        State s = new State();
-        s.setStatus("");
-        s.setMessage("loading...");
+        State s = new State(State.LOADING, "loading...");
         productState.postValue(s);
 
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
@@ -138,10 +124,7 @@ public class UserDataSourceImpl extends AbDataSource implements UserDataSource {
                 }
                 int index = (int) (Math.random() * 10);
                 Product product = new ProductImpl("产品" , index);
-                State s = new State();
-
-                s.setStatus("");
-                s.setMessage(String.valueOf(index));
+                State s = new State(State.SUCCESS, "成功...");
 
                 productState.postValue(s);
                 productMutableLiveData.postValue(product);

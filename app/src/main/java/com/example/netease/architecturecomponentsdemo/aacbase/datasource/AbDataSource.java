@@ -14,4 +14,22 @@ public abstract class AbDataSource {
     public LiveData<State> getState() {
         return state;
     }
+
+    public void notifySuccess() {
+        State s = new State(State.SUCCESS, "成功");
+        state.postValue(s);
+    }
+
+    public void notifyLoading() {
+        State s = new State(State.LOADING, "loading");
+        state.postValue(s);
+    }
+
+    /**
+     * 可以传入一个error参数
+     */
+    public void notifyError() {
+        State s = new State(State.FAILED, "失败啦！");
+        state.postValue(s);
+    }
 }

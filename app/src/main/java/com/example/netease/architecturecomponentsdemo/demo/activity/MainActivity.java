@@ -18,6 +18,10 @@ import com.example.netease.architecturecomponentsdemo.demo.repository.UserReposi
 import com.example.netease.architecturecomponentsdemo.demo.viewmodel.UserViewModel;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 
+import static com.example.netease.architecturecomponentsdemo.demo.model.dto.State.FAILED;
+import static com.example.netease.architecturecomponentsdemo.demo.model.dto.State.LOADING;
+import static com.example.netease.architecturecomponentsdemo.demo.model.dto.State.SUCCESS;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView mUserTextView;
@@ -81,12 +85,16 @@ public class MainActivity extends AppCompatActivity {
         userViewModel.getState().observe(this, new Observer<State>() {
             @Override
             public void onChanged(@Nullable State state) {
-                if (state != null || state.getStatus().equals("failed")) {
-                    mStateTextView.setText(state.getMessage());
-                } else if (state != null || state.getStatus().equals("success")) {
-                    mStateTextView.setText(state.getMessage());
-                } else if (state != null || state.getStatus().equals("loading")) {
-                    mStateTextView.setText(state.getMessage());
+                switch (state.getStatus()) {
+                    case SUCCESS:
+                        mStateTextView.setText(state.getMessage());
+                        break;
+                    case LOADING:
+                        mStateTextView.setText(state.getMessage());
+                        break;
+                    case FAILED:
+                        mStateTextView.setText(state.getMessage());
+                        break;
                 }
             }
         });
