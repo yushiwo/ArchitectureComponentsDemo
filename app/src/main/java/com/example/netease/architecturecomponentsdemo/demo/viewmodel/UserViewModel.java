@@ -1,17 +1,12 @@
 package com.example.netease.architecturecomponentsdemo.demo.viewmodel;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
-import android.support.annotation.NonNull;
 
-import com.example.netease.architecturecomponentsdemo.aacbase.repository.IRepository;
-import com.example.netease.architecturecomponentsdemo.aacbase.viewmodel.AbViewModel;
-import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
+import com.example.netease.architecturecomponentsdemo.aacbase.net.Resource;
 import com.example.netease.architecturecomponentsdemo.demo.repository.UserRepository;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 
@@ -19,23 +14,24 @@ import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
  * Created by netease on 17/11/14.
  */
 
-public class UserViewModel extends AbViewModel {
+public class UserViewModel extends ViewModel {
     public UserRepository repository;
 
     public final MutableLiveData<String> addressInput = new MutableLiveData();
 
-    public final LiveData<User> mUser =
+
+    public final LiveData<Resource<User>> mUserResource =
             Transformations.switchMap(addressInput, (String address) -> {
-                return repository.getUserLiveData(address);
+                return repository.getUserResourceLiveData(address);
             });
 
+
     public UserViewModel(UserRepository repository) {
-        super(repository);
         this.repository = repository;
     }
 
-    public LiveData<User> getUserLiveData() {
-        return mUser;
+    public LiveData<Resource<User>> getUserResource() {
+        return mUserResource;
     }
 
     private void setInput(String address) {

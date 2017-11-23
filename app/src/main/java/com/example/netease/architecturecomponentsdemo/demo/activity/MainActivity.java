@@ -11,8 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.netease.architecturecomponentsdemo.R;
+import com.example.netease.architecturecomponentsdemo.aacbase.net.Resource;
+import com.example.netease.architecturecomponentsdemo.aacbase.net.Status;
 import com.example.netease.architecturecomponentsdemo.demo.datasource.impl.UserDataSourceImpl;
-import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
 import com.example.netease.architecturecomponentsdemo.demo.repository.UserRepository;
 import com.example.netease.architecturecomponentsdemo.demo.viewmodel.UserViewModel;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
@@ -56,23 +57,23 @@ public class MainActivity extends AppCompatActivity {
     private void observeDataChange() {
         UserViewModel.Factory factory = new UserViewModel.Factory( UserRepository.getInstance(UserDataSourceImpl.getInstance()));
         userViewModel = ViewModelProviders.of(this, factory).get(UserViewModel.class);
-        userViewModel.getUserLiveData().observe(this, new Observer<User>() {
+
+        userViewModel.getUserResource().observe(this, new Observer<Resource<User>>() {
             @Override
-            public void onChanged(@Nullable User user) {
-                if (user != null) {
-                    mResultTextView.setText(user.getLastName() + user.getName());
-                }
-            }
-        });
-        userViewModel.getState().observe(this, new Observer<State>() {
-            @Override
-            public void onChanged(@Nullable State state) {
-                if (state != null || state.getStatus().equals("failed")) {
-                    mStateTextView.setText(state.getMessage());
-                } else if (state != null || state.getStatus().equals("success")) {
-                    mStateTextView.setText(state.getMessage());
-                } else if (state != null || state.getStatus().equals("loading")) {
-                    mStateTextView.setText(state.getMessage());
+            public void onChanged(@Nullable Resource<User> userResource) {
+                System.out.println(userResource.toString());
+                switch (userResource.getStatus()) {
+                    case Status.SUCCESS:
+                        mStateTextView.setText(userResource.getData().getName());
+                        break;
+
+                    case Status.ERROR:
+                        mStateTextView.setText(userResource.getMessage());
+                        break;
+
+                    case Status.LOADING:
+                        mStateTextView.setText("加载中");
+                        break;
                 }
             }
         });

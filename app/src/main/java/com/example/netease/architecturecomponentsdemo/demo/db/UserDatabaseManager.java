@@ -5,7 +5,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 
-import com.example.netease.architecturecomponentsdemo.dbmanager.AbDatabaseManager;
+import com.example.netease.architecturecomponentsdemo.aacbase.dbmanager.AbDatabaseManager;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 
 /**

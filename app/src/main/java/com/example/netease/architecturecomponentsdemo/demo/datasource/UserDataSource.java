@@ -2,15 +2,13 @@ package com.example.netease.architecturecomponentsdemo.demo.datasource;
 
 import android.arch.lifecycle.LiveData;
 
-import com.example.netease.architecturecomponentsdemo.aacbase.datasource.AbDataSource;
-import com.example.netease.architecturecomponentsdemo.aacbase.datasource.IDataSource;
+import com.example.netease.architecturecomponentsdemo.aacbase.net.Resource;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
-import com.example.netease.architecturecomponentsdemo.demo.model.dto.State;
 
 /**
  * Created by netease on 17/11/14.
  */
 
-public interface UserDataSource extends IDataSource {
-    LiveData<User> getUserLiveData(String address);
+public interface UserDataSource {
+    LiveData<Resource<User>> getUserResourceLiveData(String address);
 }

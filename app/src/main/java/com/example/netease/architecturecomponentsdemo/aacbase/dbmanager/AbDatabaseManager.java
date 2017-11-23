@@ -1,4 +1,4 @@
-package com.example.netease.architecturecomponentsdemo.dbmanager;
+package com.example.netease.architecturecomponentsdemo.aacbase.dbmanager;
 
 
 /**
