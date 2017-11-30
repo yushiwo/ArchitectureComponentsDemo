@@ -84,19 +84,41 @@ public class UserDatabaseManager extends AbDatabaseManager {
         return mUser;
     }
 
-    public List<User> getAllUsers() {
-        List<User> userList = new ArrayList<>();
-        mDB.beginTransaction();
-        try {
-            userList = mDB.userDao().getAll();
-            mDB.setTransactionSuccessful();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            mDB.endTransaction();
-        }
-        return userList;
+    MutableLiveData<List<User>> users = new MutableLiveData<>();
+
+    public LiveData<List<User>> getAllUsers() {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<User> userList = new ArrayList<>();
+                mDB.beginTransaction();
+                try {
+                    userList = mDB.userDao().getAll();
+                    users.postValue(userList);
+                    mDB.setTransactionSuccessful();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    mDB.endTransaction();
+                }
+            }
+        });
+        return users;
     }
+
+//    public List<User> getAllUsers() {
+//        List<User> userList = new ArrayList<>();
+//        mDB.beginTransaction();
+//        try {
+//            userList = mDB.userDao().getAll();
+//            mDB.setTransactionSuccessful();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            mDB.endTransaction();
+//        }
+//        return userList;
+//    }
 
     public void clear() {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {

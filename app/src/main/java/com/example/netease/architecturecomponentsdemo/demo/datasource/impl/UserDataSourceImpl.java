@@ -2,6 +2,8 @@ package com.example.netease.architecturecomponentsdemo.demo.datasource.impl;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
+import android.support.annotation.Nullable;
 
 import com.example.netease.architecturecomponentsdemo.aacbase.net.Resource;
 import com.example.netease.architecturecomponentsdemo.app.AppExecutors;
@@ -81,23 +83,39 @@ public class UserDataSourceImpl implements UserDataSource {
                 break;
 
             case "3" :
-                AppExecutors.getInstance().networkIO().execute(new Runnable() {
+//                AppExecutors.getInstance().networkIO().execute(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            Thread.sleep(3000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        dataResource.postValue(Resource.error("请求失败啦", null));
+//
+//                        List<User> userList = UserDatabaseManager.getInstance().getAllUsers();
+//                        for (User user : userList) {
+//                            System.out.println(user.toString());
+//                        }
+//                    }
+//                });
+
+                LiveData<List<User>> userList = UserDatabaseManager.getInstance().getAllUsers();
+                userList.observeForever(new Observer<List<User>>() {
                     @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        dataResource.postValue(Resource.error("请求失败啦", null));
-
-                        List<User> userList = UserDatabaseManager.getInstance().getAllUsers();
-                        for (User user : userList) {
-                            System.out.println(user.toString());
+                    public void onChanged(@Nullable List<User> users) {
+                        if (users == null || users.size() == 0) {
+                            System.out.println("没有数据啦");
+                        } else {
+                            System.out.println("长度 ＝ " + users.size());
+                            for (User user : users) {
+                                System.out.println(user.toString());
+                            }
                         }
                     }
                 });
+
                 break;
 
             default:
