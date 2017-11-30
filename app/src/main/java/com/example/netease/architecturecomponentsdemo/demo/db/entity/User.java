@@ -65,4 +65,14 @@ public class User implements IUser {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "_id='" + _id + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
 }

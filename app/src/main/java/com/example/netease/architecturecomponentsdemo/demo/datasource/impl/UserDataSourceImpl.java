@@ -5,8 +5,11 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.example.netease.architecturecomponentsdemo.aacbase.net.Resource;
 import com.example.netease.architecturecomponentsdemo.app.AppExecutors;
+import com.example.netease.architecturecomponentsdemo.demo.db.UserDatabaseManager;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
 import com.example.netease.architecturecomponentsdemo.demo.datasource.UserDataSource;
+
+import java.util.List;
 
 /**
  * Created by netease on 17/11/14.
@@ -49,6 +52,8 @@ public class UserDataSourceImpl implements UserDataSource {
                         user.setAge(18);
                         user.setLastName("盛");
                         dataResource.postValue(Resource.success(user));
+
+                        UserDatabaseManager.getInstance().saveUser(user);
                     }
                 });
                 break;
@@ -69,6 +74,8 @@ public class UserDataSourceImpl implements UserDataSource {
                         user.setAge(18);
                         user.setLastName("陈");
                         dataResource.postValue(Resource.success(user));
+
+                        UserDatabaseManager.getInstance().saveUser(user);
                     }
                 });
                 break;
@@ -84,8 +91,17 @@ public class UserDataSourceImpl implements UserDataSource {
                         }
 
                         dataResource.postValue(Resource.error("请求失败啦", null));
+
+                        List<User> userList = UserDatabaseManager.getInstance().getAllUsers();
+                        for (User user : userList) {
+                            System.out.println(user.toString());
+                        }
                     }
                 });
+                break;
+
+            default:
+                UserDatabaseManager.getInstance().clear();
                 break;
         }
 

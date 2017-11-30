@@ -6,7 +6,11 @@ import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 
 import com.example.netease.architecturecomponentsdemo.aacbase.dbmanager.AbDatabaseManager;
+import com.example.netease.architecturecomponentsdemo.app.AppExecutors;
 import com.example.netease.architecturecomponentsdemo.demo.db.entity.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hzzhengrui on 17/11/18.
@@ -32,9 +36,9 @@ public class UserDatabaseManager extends AbDatabaseManager {
 
     @SuppressLint("StaticFieldLeak")
     public void saveUser(User user) {
-        new AsyncTask<Void, Void, Void>() {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
-            protected Void doInBackground(Void... voids) {
+            public void run() {
                 mDB.beginTransaction();
                 try {
                     mDB.userDao().save(user);
@@ -44,9 +48,8 @@ public class UserDatabaseManager extends AbDatabaseManager {
                 } finally {
                     mDB.endTransaction();
                 }
-                return null;
             }
-        }.execute();
+        });
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -79,5 +82,37 @@ public class UserDatabaseManager extends AbDatabaseManager {
             }
         }.execute();
         return mUser;
+    }
+
+    public List<User> getAllUsers() {
+        List<User> userList = new ArrayList<>();
+        mDB.beginTransaction();
+        try {
+            userList = mDB.userDao().getAll();
+            mDB.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            mDB.endTransaction();
+        }
+        return userList;
+    }
+
+    public void clear() {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mDB.beginTransaction();
+                try {
+                    mDB.userDao().deleteAll();
+                    mDB.setTransactionSuccessful();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    mDB.endTransaction();
+                }
+            }
+        });
+
     }
 }
